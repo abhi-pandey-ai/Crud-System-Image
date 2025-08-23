@@ -1,0 +1,13 @@
+
+span {
+  color: red;
+  font-size: 18px;
+}
+
+form {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.6);     /*treanparent border dark borser */
+}
+
