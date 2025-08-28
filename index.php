@@ -46,6 +46,7 @@
 	 
 	  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	  
+	  
 	  <link rel= "stylesheet" href="style.css">
     <title>Index Page</title>
     
@@ -59,13 +60,19 @@
 					<?php
 					    
 						if (isset($_GET['id'])) {
-							echo'<img src="'.$image.'" height="100" width="100">';
-						}
+							echo'<img src="'.$images.'" height="100" width="100">';
+						} 
+						
+					
+					if(isset($_GET['msg']) && $_GET['msg'] == "3"){
+						echo '<div style= "color:red;"> this file format not allowed</div>';
+					}
 					?>
+					<input type="hidden" name="oldimage" value="<?php echo $image ?>">
 					
 					<br><label for="file" class="form-label">Upload-image</label>
-					<input type="file" class="form-control" id="file" name="file"  value="<?php echo $file; ?>" >
-					<span id="fileErr"></span>
+					<input type="file" class="form-control" id="file" name="file" >
+					<span id="fileErr"></span><span id="err"></span>
 				</div>
 
 				<div class="mb-3">
@@ -76,7 +83,7 @@
 
 				<div class="mb-3">
 					<label for="email" class="form-label">Email</label>
-					<input type="text" class="form-control" id="email" name="email" value="<?php echo $email; ?>" placeholder="Enter Your Email">
+					<input type="text" class="form-control" id="email" name="email"maxlength="40" value="<?php echo $email; ?>" placeholder="Enter Your Email">
 					<span id="emailErr"></span>
 				</div>
 
@@ -88,13 +95,15 @@
 
 				<div class="mb-3">
 					<label for="password" class="form-label">Password</label>
-					<input type="text" class="form-control" id="password" name="password" value="<?php echo $password; ?>" placeholder="*******">
+					<input type="password" class="form-control" id="password" name="password"maxlength="18" value="<?php echo $password; ?>" placeholder="Enter your password">
 					<span id="passwordErr"></span>
+					<input type="checkbox" onclick="show()";>
+					<label for="">Show Password</label>
 				</div>
 				
 				<div class="mb-3">
 					<label for="confirmPassword" class="form-label">ComfirmPassword</label>
-					<input type="text" class="form-control" id="confirmPassword" name="confirmPassword"value="<?php echo $confirmpass; ?>"  placeholder="*******">
+					<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" maxlength="18" value="<?php echo $confirmpass; ?>"  placeholder="Enter Your Password">
 					<span id="confirmPasswordErr"></span>
 				</div>
 
@@ -143,8 +152,18 @@
         
     </div>
     <script>
+		function show(){
+	    	let	a = document.getElementById('password');
+			if(a.type === "password"){
+				a.type="text";
+			} else  {
+					a.type="password";
+			}
+		}
+		
 			function checkfunction() {
-				var file             = document.getElementById('file').value
+				var isEdit = <?php echo isset($_GET['id']) ? 'true' : 'false'; ?>;
+				var file             = document.getElementById('file').value;
 				var name             = document.getElementById('name').value;
 				var email            = document.getElementById('email').value;
 				var address          = document.getElementById('address').value;
@@ -152,7 +171,7 @@
 				var confirmPassword  = document.getElementById('confirmPassword').value;
 				var gender           = document.getElementById('gender').value;
 				var caste            = document.querySelector('input[name="caste"]:checked');
-				if(file == "") {
+				if(file == "" && !isEdit) { // file select nhi kiyaa gyaa hai or edit mode me v nhi hai hm
 					document.getElementById('fileErr').innerHTML="upload Your iamege";
 					return false ; 
 				} else {
@@ -193,6 +212,7 @@
 				if(confirmPassword == ""){
 					document.getElementById('confirmPasswordErr').innerHTML = "Enter Your Confirm password";
 					return false ; 
+
 				} else if(confirmPassword != password){
 					document.getElementById('confirmPasswordErr').innerHTML = "Password Does Not Match";
 					return false ; 
@@ -216,7 +236,9 @@
 				return true; 
 			}
 			
+			
 	</script>
+	
 	
   </body>
 </html>
