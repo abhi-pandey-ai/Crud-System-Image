@@ -112,7 +112,7 @@
                     <td><?php echo ($row['caste']); ?></td>
 
                     <td>
-                        <a href="index.php?id=<?php echo $row['id']; ?>" onclick="return check2();"><i class="bi bi-pencil text-success"></i>   </a>
+                        <a href="index.php?id=<?php echo $row['id']; ?>" onclick="return check2();"><i class="bi bi-pencil text-success"></i></a>
                     </td>
                     <td>
                         <a href="delete.php?id=<?php echo $row['id']; ?>" onclick="return check();" ><i class="bi bi-trash text-danger"></i></a>
@@ -140,11 +140,12 @@
             echo'<nav><ul class="pagination  justify-content-center">';
             for($i = 1; $i<=$total_page;$i++){
                 $active = ($i==$page) ? 'active' : '';
-                echo'<li class = "page-item' . $active .'">
-                <a class = "page-link" href="view.php?page='.$i . '">' .$i . '</a>
-                </li>'; 
+                echo '<li class="page-item ' . $active . '">
+                    <a class="page-link" href="view.php?page=' . $i . '">' . $i . '</a>
+                </li>';
+ 
             }
-            echo '</ul></ul>';
+            echo '</ul></nav>';
         }
         ?>
     </div>
